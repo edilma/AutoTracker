@@ -21,5 +21,17 @@ namespace AutoTracker.Controllers
         {
             return View();
         }
+        //Get where the user lands and sees the button
+        public IActionResult Add()
+        {
+            return View();
+
+        }
+        [HttpPost]
+        public IActionResult Add(AddMaintenanceViewModel addMaintenanceViewModel)
+        {
+            return View();
+
+        }
     }
 }

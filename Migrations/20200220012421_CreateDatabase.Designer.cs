@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoTracker.Migrations
 {
     [DbContext(typeof(AutoTrackerDbContext))]
-    [Migration("20200216210904_CreateTables")]
-    partial class CreateTables
+    [Migration("20200220012421_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,12 @@ namespace AutoTracker.Migrations
                     b.Property<int>("CurrentMiles")
                         .HasColumnType("int");
 
+                    b.Property<string>("Make")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("NextMaintenanceDays")
                         .HasColumnType("int");
 
@@ -38,6 +44,12 @@ namespace AutoTracker.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VinNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("ID");

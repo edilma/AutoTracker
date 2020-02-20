@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AutoTracker.Migrations
 {
-    public partial class CreateTables : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,6 +49,10 @@ namespace AutoTracker.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(nullable: false),
+                    VinNumber = table.Column<string>(nullable: true),
+                    Make = table.Column<string>(nullable: true),
+                    Model = table.Column<string>(nullable: true),
+                    Year = table.Column<int>(nullable: false),
                     CurrentMiles = table.Column<int>(nullable: false),
                     NextMaintenanceMiles = table.Column<int>(nullable: false),
                     NextMaintenanceDays = table.Column<int>(nullable: false)

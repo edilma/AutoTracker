@@ -29,6 +29,12 @@ namespace AutoTracker.Migrations
                     b.Property<int>("CurrentMiles")
                         .HasColumnType("int");
 
+                    b.Property<string>("Make")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("NextMaintenanceDays")
                         .HasColumnType("int");
 
@@ -36,6 +42,12 @@ namespace AutoTracker.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VinNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("ID");

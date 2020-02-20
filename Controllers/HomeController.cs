@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AutoTracker.Models;
 using Microsoft.AspNetCore.Http;
+using AutoTracker.Data;
+
 
 namespace AutoTracker.Controllers
 {
@@ -14,9 +16,14 @@ namespace AutoTracker.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        private AutoTrackerDbContext context;
+
+
+        public HomeController(ILogger<HomeController> logger, AutoTrackerDbContext dbContext)
         {
             _logger = logger;
+             context = dbContext;
         }
 
         public IActionResult Index()
@@ -29,7 +36,9 @@ namespace AutoTracker.Controllers
         {
             var userID = HttpContext.Session.GetInt32("userID");
 
-            return View();
+            List<Car> cars = context.Cars.Where(x => x.UserID == userID).ToList();
+
+            return View(cars);
         }
 
 

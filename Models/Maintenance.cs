@@ -12,7 +12,7 @@ namespace AutoTracker.Models
         public int CarID { get; set; }
         public MaintenanceType MaintenanceType { get; set; }
         public int MaintenanceTypeID { get; set; }
-        public int MaintenacePerformedMiles  { get; set; }
+        public int MaintenacePerformedMiles { get; set; }
         public DateTime MaintenancePerformedDate { get; set; }
         public double MaintenanceCost { get; set; }
         public int MaintenaceFutureMiles { get; set; }

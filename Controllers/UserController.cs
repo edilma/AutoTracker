@@ -23,7 +23,6 @@ namespace AutoTracker.Controllers
             return View();
         }
         
-        //Action GET  where the future user land to register
         public IActionResult Add()
         {
             return View();
