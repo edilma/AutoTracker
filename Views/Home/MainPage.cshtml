@@ -52,7 +52,42 @@
     <a href="/Cars/Car/@car.ID">@car.Make @car.Model</a>
     -
     <a href="/Maintenance/Add/@car.ID">Add Maintenance</a>
-    
-</p>
+    -
+    <a href="/Mods/Add/@car.ID">Add Mods</a>
 
+
+</p>
+}
+
+
+<h1>
+    Maintenances
+</h1>
+
+
+
+@foreach (var main in @ViewBag.maintenance)
+{
+    <p>
+        car id: @main.CarID
+        Maintenance type: @main.MaintenanceTypeID
+        cost: @main.MaintenanceCost
+
+    </p>
+}
+
+
+<h1>
+    mods
+</h1>
+
+
+
+@foreach (var mod in @ViewBag.mods)
+{
+    <p>
+        car id: @mod.CarID
+        Name: @mod.ModName
+
+    </p>
 }

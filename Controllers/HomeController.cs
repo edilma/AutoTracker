@@ -37,6 +37,8 @@ namespace AutoTracker.Controllers
             var userID = HttpContext.Session.GetInt32("userID");
 
             List<Car> cars = context.Cars.Where(x => x.UserID == userID).ToList();
+            ViewBag.maintenance = context.Maintenances.ToList();
+            ViewBag.mods = context.Mods.ToList();
 
             return View(cars);
         }

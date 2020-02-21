@@ -9,12 +9,13 @@ namespace AutoTracker.ViewModels
 {
     public class AddMaintenanceViewModel
     {
+        public int CarID { get; set; }
         [Required]
         [Display(Name = "Maintenance Service")]
         //public string SelectMaintenace { get; set; }
         
         public int MaintenanceTypeID { get; set; }
-        public IEnumerable<SelectListItem> maintenanceTypes { get; set; }
+        public List<SelectListItem> MaintenanceTypes { get; set; }
         
         [Required (ErrorMessage = "Please enter a valid number of miles")]
         [Display(Name = "Miles in Odometer")]
@@ -33,12 +34,12 @@ namespace AutoTracker.ViewModels
         public AddMaintenanceViewModel()
         { }
 
-        public AddMaintenanceViewModel(IEnumerable<MaintenanceType> maintenanceTypes)
+        public AddMaintenanceViewModel(IEnumerable<MaintenanceType> _maintenanceTypes)
         {
            //Car = car;
-            List<SelectListItem> MaintenanceTypes = new List<SelectListItem>();
+             MaintenanceTypes = new List<SelectListItem>();
             
-            foreach (MaintenanceType maintenanceType in maintenanceTypes)
+            foreach (MaintenanceType maintenanceType in _maintenanceTypes)
             {
                 MaintenanceTypes.Add(new SelectListItem {
                     Value = maintenanceType.MaintenanceTypeID.ToString(),
