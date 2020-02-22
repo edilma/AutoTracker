@@ -15,7 +15,7 @@ namespace AutoTracker.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -192,7 +192,7 @@ namespace AutoTracker.Migrations
             modelBuilder.Entity("AutoTracker.Models.Maintenance", b =>
                 {
                     b.HasOne("AutoTracker.Models.Car", "Car")
-                        .WithMany()
+                        .WithMany("Maintenances")
                         .HasForeignKey("CarID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
