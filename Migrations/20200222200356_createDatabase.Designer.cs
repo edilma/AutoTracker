@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutoTracker.Migrations
 {
     [DbContext(typeof(AutoTrackerDbContext))]
-    [Migration("20200220012421_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20200222200356_createDatabase")]
+    partial class createDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -194,7 +194,7 @@ namespace AutoTracker.Migrations
             modelBuilder.Entity("AutoTracker.Models.Maintenance", b =>
                 {
                     b.HasOne("AutoTracker.Models.Car", "Car")
-                        .WithMany()
+                        .WithMany("Maintenances")
                         .HasForeignKey("CarID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

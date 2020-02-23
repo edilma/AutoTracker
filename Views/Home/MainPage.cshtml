@@ -18,9 +18,17 @@
                 <ul class="list-group list-group-flush">
                     @foreach (var main in @ViewBag.maintenance)
                     {
-                        <li class="list-group-item">car id: @main.CarID</li>
-                        <li class="list-group-item">Maintenance type: @main.MaintenanceTypeID</li>
-                        <li class="list-group-item"> cost: @main.MaintenanceCost</li>
+                        @if (@main.CarID == @car.ID)
+                        {
+                            <li class="list-group-item">car id: @main.CarID</li>
+                            <li class="list-group-item">Maintenance type: @main.MaintenanceTypeID</li><!--Maintenance type name-->
+                            
+
+                            <li class="list-group-item"> cost: @main.MaintenanceCost</li>
+                        }
+                        else { }
+
+
                     }
                 </ul>
 
@@ -51,7 +59,7 @@
     -
     <a href="/Maintenance/Add/@car.ID">Add Maintenance</a>
     -
-    <a href="/Mods/Add/@car.ID">Add Mods</a>
+    <a href="/Mod/Add/@car.ID">Add Modification</a>
 
 
 </p>

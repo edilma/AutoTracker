@@ -1,0 +1,37 @@
+﻿@model AutoTracker.ViewModels.AddModViewModel
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h1>Add Mod</h1>
+
+
+<form asp-controller="Mod" asp-action="Add" method="post">
+
+    <div class="form-group">
+        <label asp-for="ModName"></label>
+        <input class="form-control" asp-for="ModName" />
+        <span asp-validation-for="ModName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ModDescription"></label>
+        <input class="form-control" asp-for="ModDescription" />
+        <span asp-validation-for="ModDescription"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ModDate"></label>
+        <input class="form-control" asp-for="ModDate" />
+        <span asp-validation-for="ModDate"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ModCost"></label>
+        <input class="form-control" asp-for="ModCost" />
+        <span asp-validation-for="ModCost"></span>
+    </div>
+    <div class="card-footer">
+        <input class="btn btn-danger btn-sm" type="submit" value="Add Modification Service" />
+
+
+    </div>
+</form>
+

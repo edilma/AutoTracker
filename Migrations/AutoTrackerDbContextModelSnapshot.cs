@@ -192,7 +192,7 @@ namespace AutoTracker.Migrations
             modelBuilder.Entity("AutoTracker.Models.Maintenance", b =>
                 {
                     b.HasOne("AutoTracker.Models.Car", "Car")
-                        .WithMany()
+                        .WithMany("Maintenances")
                         .HasForeignKey("CarID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
