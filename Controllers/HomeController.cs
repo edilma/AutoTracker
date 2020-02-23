@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using AutoTracker.Models;
 using Microsoft.AspNetCore.Http;
 using AutoTracker.Data;
+using AutoTracker.ViewModels;
 
 
 namespace AutoTracker.Controllers
@@ -35,12 +36,13 @@ namespace AutoTracker.Controllers
         public IActionResult MainPage()
         {
             var userID = HttpContext.Session.GetInt32("userID");
+            MainPageViewModel mainPageViewModel = new MainPageViewModel();
+            mainPageViewModel.Cars = context.Cars.Where(x => x.UserID == userID).ToList();
+            mainPageViewModel.Maintenances = context.Maintenances.ToList();
+            mainPageViewModel.Mods= context.Mods.ToList();
+            mainPageViewModel.MaintenanceTypes = context.MaintenanceTypes.ToList();
 
-            List<Car> cars = context.Cars.Where(x => x.UserID == userID).ToList();
-            ViewBag.maintenance = context.Maintenances.ToList();
-            ViewBag.mods = context.Mods.ToList();
-
-            return View(cars);
+            return View(mainPageViewModel);
         }
 
 

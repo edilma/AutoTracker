@@ -1,4 +1,5 @@
-﻿@model List<Car>
+﻿@model AutoTracker.ViewModels.MainPageViewModel
+
 @{
     ViewData["Title"] = "Main Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,25 +11,48 @@
     <div class="card" style="width:auto">
 
         <div class="card-body">
-            @foreach (var car in Model)
+            @foreach (var car in Model.Cars)
             {
                 <h5 class="card-title"><a href="/Cars/Car/@car.ID">@car.Make @car.Model</a></h5>
                 <h6 class="card-subtitle mb-2 text-muted">Maintenance History</h6>
                 <p class="card-text">You have logged the following maintenance in AutoTracker</p>
                 <ul class="list-group list-group-flush">
-                    @foreach (var main in @ViewBag.maintenance)
+                    @foreach (var main in Model.Maintenances)
                     {
-                        @if (@main.CarID == @car.ID)
+                        @if (main.CarID == car.ID)
                         {
                             <li class="list-group-item">car id: @main.CarID</li>
                             <li class="list-group-item">Maintenance type: @main.MaintenanceTypeID</li><!--Maintenance type name-->
-                            
+                            <li class="list-group-item">
+                                Maintenance type:
+                                @foreach (var maintenanceType in Model.MaintenanceTypes)
+                                {
+                                    @if (main.MaintenanceTypeID == maintenanceType.MaintenanceTypeID)
+                                    {
+                                        @maintenanceType.Name
+                                    }
+                                }
 
+                            </li>
                             <li class="list-group-item"> cost: @main.MaintenanceCost</li>
+
+
+
                         }
                         else { }
 
 
+                    }
+                </ul>
+                <h6 class="card-subtitle mb-2 text-muted">Modification History</h6>
+                <p class="card-text">You have made the following modifications to your car</p>
+                <ul>
+                    @foreach (var mod in Model.Mods)
+                    {
+                        @if (mod.CarID==car.ID)
+                        {
+                    <li> @mod.ModName</li>
+                        }
                     }
                 </ul>
 
@@ -38,10 +62,10 @@
 
             <a href="#" class="card-link">Card link</a>
             <a href="#" class="card-link">Another link</a>
-            
+
         </div>
+
     </div>
-</div>
 
 
 
@@ -51,7 +75,7 @@
 <a href="/Cars/Add">Add A Car</a>
 
 <h1>My Cars</h1>
-@foreach (var car in Model)
+@foreach (var car in Model.Cars)
 {
 
 <p>
@@ -72,7 +96,7 @@
 
 
 
-@foreach (var main in @ViewBag.maintenance)
+@foreach (var main in Model.Maintenances)
 {
     <p>
         car id: @main.CarID
@@ -89,7 +113,7 @@
 
 
 
-@foreach (var mod in @ViewBag.mods)
+@foreach (var mod in Model.Mods)
 {
     <p>
         car id: @mod.CarID
