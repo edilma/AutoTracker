@@ -8,9 +8,12 @@
 
 <form asp-controller="Mod" asp-action="Add" method="post">
 
+ 
+
     <div class="form-group">
         <label asp-for="ModName"></label>
         <input class="form-control" asp-for="ModName" />
+        <input type="hidden" name="CarID" value="@Model.CarID" />
         <span asp-validation-for="ModName"></span>
     </div>
     <div class="form-group">

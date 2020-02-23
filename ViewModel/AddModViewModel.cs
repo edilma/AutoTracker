@@ -10,6 +10,7 @@ namespace AutoTracker.ViewModels
     public class AddModViewModel
     {
         public int CarID { get; set; }
+
         [Display(Name = "Modification Name")]
         [Required]
         public string ModName { get; set; }

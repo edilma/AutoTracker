@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AutoTracker.Models;
 using AutoTracker.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace AutoTracker.Controllers
 {
@@ -19,21 +21,24 @@ namespace AutoTracker.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IList<Mod> AllMod = context.Mods.ToList();
+            return View(AllMod);
         }
 
-        public IActionResult Add()
+        public IActionResult Add(int id)
         {
-            return View();
-
+           AddModViewModel addModViewModel = new AddModViewModel();
+            addModViewModel.CarID = id;
+           return View(addModViewModel);
+            
         }
         [HttpPost]
         public IActionResult Add(AddModViewModel addModViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                Mod newMod = new Mod()
+            if (ModelState.IsValid) { 
+               Mod newMod = new Mod()
                 {
+                    CarID = addModViewModel.CarID,
                     ModName = addModViewModel.ModName,
                     ModDescription = addModViewModel.ModDescription,
                     ModDate = addModViewModel.ModDate,
