@@ -1,7 +1,83 @@
 ﻿
+@model AutoTracker.ViewModels.AddCarViewModel
 @{
     ViewData["Title"] = "Add";
 }
 
-<h1>Add</h1>
+<h1>Add Car</h1>
+<div class="row align-items-center my-5">
+    <div class="col-lg-7">
 
+        <h2>Here the name of the car</h2>
+        <p>
+            AutoTracker has the history of your car maintenance<br />
+
+            <ul>
+                <li>carmake</li>
+                <li>car description</li>
+                <li>Track all your cars history in one place</li>
+            </ul>
+        </p>
+
+
+    </div>
+    <div class="col-lg-5 text-center">
+        <div>
+            <br />
+            <br />
+            <h4>Add a New Maintenance Service</h4>
+            <br />
+
+            <form asp-controller="Maintenance" asp-action="Add" method="post">
+
+                <div class="form-group">
+                    <label asp-for="VinNumber"></label>
+                    <select asp-for="VinNumber" asp-items="Model.VinNumber"></select>
+                    <input type="hidden" name="CarID" value="@Model.CarID" />
+                    <span asp-validation-for="VinNumber"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Make"></label>
+                    <input class="form-control" asp-for="Make" />
+                    <span asp-validation-for="Make"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Model"></label>
+                    <input class="form-control" asp-for="Model" />
+                    <span asp-validation-for="Model"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Year"></label>
+                    <input class="form-control" asp-for="Year" />
+                    <span asp-validation-for="Year"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CurrentMiles"></label>
+                    <input class="form-control" asp-for="CurrentMiles" />
+                    <span asp-validation-for="CurrentMiles"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NextMaintenanceMiles"></label>
+                    <input class="form-control" asp-for="NextMaintenanceMiles" />
+                    <span asp-validation-for="NextMaintenanceMiles"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NextMaintenanceDays"></label>
+                    <input class="form-control" asp-for="NextMaintenanceDays" />
+                    <span asp-validation-for="NextMaintenanceDays"></span>
+                </div>
+
+                <div class="card-footer">
+                    <input class="btn btn-danger btn-sm" type="submit" value="Add Maintenance Service" />
+
+
+                </div>
+            </form>
+
+        </div>
+
+
+
+
+    </div>
+</div>
