@@ -6,45 +6,45 @@
 }
 
 <h1>Welcome to AutoTracker</h1>
-<div>
+<a href="/Cars/Add">Add A Car</a>
+<div class="row">
 
-    <div class="card" style="width:auto">
-
-        <div class="card-body">
             @foreach (var car in Model.Cars)
             {
+             <div class="col-md-6">
                 <h5 class="card-title"><a href="/Cars/Car/@car.ID">@car.Make @car.Model</a></h5>
-                <h6 class="card-subtitle mb-2 text-muted">Maintenance History</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Maintenance History - <a href="/Maintenance/Add/@car.ID">Add</a></h6>
                 <p class="card-text">You have logged the following maintenance in AutoTracker</p>
-                <ul class="list-group list-group-flush">
+            
                     @foreach (var main in Model.Maintenances)
                     {
                         @if (main.CarID == car.ID)
                         {
-                            <li class="list-group-item">car id: @main.CarID</li>
-                            <li class="list-group-item">Maintenance type: @main.MaintenanceTypeID</li><!--Maintenance type name-->
-                            <li class="list-group-item">
-                                Maintenance type:
-                                @foreach (var maintenanceType in Model.MaintenanceTypes)
-                                {
-                                    @if (main.MaintenanceTypeID == maintenanceType.MaintenanceTypeID)
-                                    {
-                                        @maintenanceType.Name
-                                    }
-                                }
-
-                            </li>
-                            <li class="list-group-item"> cost: @main.MaintenanceCost</li>
 
 
+                            
+             <p>
+                 Maintenance type:
+                 @foreach (var maintenanceType in Model.MaintenanceTypes)
+                 {
+                     @if (main.MaintenanceTypeID == maintenanceType.MaintenanceTypeID)
+                     {
+                         @maintenanceType.Name
+                     }
+                 }
+             </p>
+             <p>
+                 cost: $@main.MaintenanceCost
+             </p>
 
-                        }
-                        else { }
+
+
+                                 }
 
 
                     }
-                </ul>
-                <h6 class="card-subtitle mb-2 text-muted">Modification History</h6>
+           
+             <h6 class="card-subtitle mb-2 text-muted">Modification History - <a href="/Mod/Add/@car.ID">Add</a></h6>
                 <p class="card-text">You have made the following modifications to your car</p>
                 <ul>
                     @foreach (var mod in Model.Mods)
@@ -56,68 +56,10 @@
                     }
                 </ul>
 
+             </div>
             }
-
-
-
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-
-        </div>
-
-    </div>
+</div>
 
 
 
 
-
-
-<a href="/Cars/Add">Add A Car</a>
-
-<h1>My Cars</h1>
-@foreach (var car in Model.Cars)
-{
-
-<p>
-    <a href="/Cars/Car/@car.ID">@car.Make @car.Model</a>
-    -
-    <a href="/Maintenance/Add/@car.ID">Add Maintenance</a>
-    -
-    <a href="/Mod/Add/@car.ID">Add Modification</a>
-
-
-</p>
-}
-
-
-<h1>
-    Maintenances
-</h1>
-
-
-
-@foreach (var main in Model.Maintenances)
-{
-    <p>
-        car id: @main.CarID
-        Maintenance type: @main.MaintenanceTypeID
-        cost: @main.MaintenanceCost
-
-    </p>
-}
-
-
-<h1>
-    mods
-</h1>
-
-
-
-@foreach (var mod in Model.Mods)
-{
-    <p>
-        car id: @mod.CarID
-        Name: @mod.ModName
-
-    </p>
-}
