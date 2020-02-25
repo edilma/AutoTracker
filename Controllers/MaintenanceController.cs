@@ -10,7 +10,7 @@ using AutoTracker.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoTracker.Controllers
-{
+{ 
     public class MaintenanceController : Controller
     {
 

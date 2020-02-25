@@ -26,6 +26,11 @@
     <PackageReference Include="NHTSA-VehicleData" Version="2.0.7" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\MainPage.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+  </ItemGroup>
 
 
 
