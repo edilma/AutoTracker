@@ -1,0 +1,67 @@
+﻿@model AutoTracker.ViewModels.MainPageViewModel
+
+@{
+    ViewData["Title"] = "Main Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <main>
+        <h1>Welcome to AutoTracker</h1>
+        <button class="btn btn-danger btn-sm" onclick="windows.location='/Cars/Add';">Add a Car</button>
+        <br /><br />
+        <div class="row">
+            @foreach (var car in Model.Cars)
+            {
+
+                <div class="card col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="/Cars/Car/@car.ID">@car.Make @car.Model</a></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Maintenance History - <a href="/Maintenance/Add/@car.ID">Add</a></h6>
+                        <p class="card-text">You have logged the following maintenance in AutoTracker</p>
+                        @foreach (var main in Model.Maintenances)
+                        {
+                            @if (main.CarID == car.ID)
+                            {
+
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        Maintenance type:
+                                        @foreach (var maintenanceType in Model.MaintenanceTypes)
+                                        {
+                                            @if (main.MaintenanceTypeID == maintenanceType.MaintenanceTypeID)
+                                            {
+                                                @maintenanceType.Name
+                                            }
+                                        }
+                                        <br />
+                                        cost: $@main.MaintenanceCost
+                                    </div>
+                                </div>
+
+                            }
+
+                        }
+                        <div style="clear:both;"><br /></div>
+
+                        <h6 class="card-subtitle mb-2 text-muted">Modification History - <a href="/Mod/Add/@car.ID">Add</a></h6>
+                        <p class="card-text">You have made the following modifications to your car</p>
+
+                        @foreach (var mod in Model.Mods)
+                        {
+                            @if (mod.CarID == car.ID)
+                            {
+                                <div class="card">
+                                    <div class="card-body">
+                                        @mod.ModName
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+        </div>
+
+    </main>
+
