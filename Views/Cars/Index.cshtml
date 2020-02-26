@@ -9,7 +9,7 @@
 
         <h2>Add your Car's VIN and we'll look up the details</h2>
         <p>
-            AutoTracker has the history of your car maintena
+            AutoTracker has the history of your car maintenance
 
             <form asp-controller="Cars" asp-action="Index" method="post">
 
@@ -48,12 +48,12 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="NextMaintenanceDays">Next Maintenance Days</label>
-                    <input class="form-control" asp-for="NextMaintenanceDays" />
+                    <input class="form-control" asp-for="NextMaintenanceDays" value="90"/>
                     <span asp-validation-for="NextMaintenanceDays"></span>
-                </div>
+                </div> 
                 <div class="form-group">
                     <label asp-for="NextMaintenanceMiles">Next Maintenance Miles</label>
-                    <input class="form-control" asp-for="NextMaintenanceMiles" />
+                    <input class="form-control" asp-for="NextMaintenanceMiles" value="5000"/>
                     <span asp-validation-for="NextMaintenanceMiles"></span>
                 </div>
                 <div class="form-group">

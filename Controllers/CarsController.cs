@@ -62,9 +62,7 @@ namespace AutoTracker.Controllers
             car.VinNumber = addCarsViewModel.VinNumber;
             car.Year = addCarsViewModel.Year;
             context.SaveChanges();
-            
-
-            return View(addCarsViewModel);
+            return Redirect("/Home/MainPage");
         }
 
         //Get where the user lands and sees the button
