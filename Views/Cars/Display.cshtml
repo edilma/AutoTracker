@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AutoTracker.Models.Car>
+    @{
+        ViewData["Title"] = "History";
+}
+
+<h1>History</h1>
+<div>
+    <h3>Show all cars</h3>
+    <table>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <th>Year</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Current Miles</th>
+                <th>Number Services</th>
+            </tr>
+            <tr>
+                <td>@car.Year</td>
+                <td> @car.Make</td>
+                <td>@car.Model</td>
+                <td>@car.CurrentMiles</td>
+                <td>@car.NextMaintenanceDays</td>
+            </tr>
+        }
+    </table>
+            
+</div>

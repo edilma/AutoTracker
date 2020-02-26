@@ -15,7 +15,9 @@ namespace AutoTracker.Data
 
         public AutoTrackerDbContext(DbContextOptions<AutoTrackerDbContext> options)
             : base(options)
-        { }
+        {
+            
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

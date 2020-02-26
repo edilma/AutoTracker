@@ -107,5 +107,11 @@ namespace AutoTracker.Controllers
             return View(addCarsViewModel);
 
         }
+        //Get action to make a report
+       public IActionResult Display()
+        {
+            var cars = context.Cars.ToArray();
+            return View(cars);
+        }
     }
 }

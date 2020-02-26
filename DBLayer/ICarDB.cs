@@ -8,6 +8,6 @@ namespace AutoTracker.DBLayer
 {
     public interface ICarDB
     {
-        public List<Car> GetCars(int userId);
+        List<Car> GetCars(int userId);
     }
 }
