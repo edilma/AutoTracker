@@ -1,0 +1,38 @@
+﻿@model AutoTracker.Models.Car
+@{
+    ViewData["Title"] = "History";
+}
+
+
+<h1>History</h1>
+<div>
+    <h3>Show all cars</h3>
+    <table>
+        <tr>
+            <th>Year</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Current Miles</th>
+            <th>Number Services</th>
+        </tr>
+        <tr>
+            <td>@Model.Year</td>
+            <td>@Model.Make</td>
+            <td>@Model.Model</td>
+            <td>@Model.CurrentMiles</td>
+            <td>@Model.NextMaintenanceDays</td>
+            <td>@Model.Maintenances.Count</td>
+        </tr>
+
+    </table>
+
+    @foreach (var maint in Model.Maintenances)
+    {
+        <div>
+            @maint.MaintenanceType.Name
+            @maint.MaintenancePerformedDate
+            @maint.MaintenanceCost
+        </div>
+    }
+
+</div>

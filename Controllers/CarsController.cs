@@ -110,8 +110,22 @@ namespace AutoTracker.Controllers
         //Get action to make a report
        public IActionResult Display()
         {
-            var cars = context.Cars.ToArray();
+            var cars = context.Cars;
             return View(cars);
+        }
+
+        public IActionResult History(int id)
+        {
+            Car myCar = context.Cars.Where(x => x.ID == id).FirstOrDefault();
+            myCar.Maintenances = context.Maintenances.Where(x => x.CarID == id).ToList();
+            foreach (var main in myCar.Maintenances)
+            {
+                main.MaintenanceType = context.MaintenanceTypes.Where(x => x.MaintenanceTypeID == main.MaintenanceTypeID).FirstOrDefault();
+            }
+            
+            myCar.Mods = context.Mods.Where(x => x.CarID == id).ToList();
+
+            return View(myCar);
         }
     }
 }

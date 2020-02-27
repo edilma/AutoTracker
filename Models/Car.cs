@@ -18,6 +18,7 @@ namespace AutoTracker.Models
         public int NextMaintenanceMiles { get; set; }
         public int NextMaintenanceDays { get; set; }
         public List<Maintenance> Maintenances { get; set; }
+        public List<Mod> Mods { get; set; }
 
         public Car() { }
         public Car(string aVinNumber, string aMake, String aModel, 
