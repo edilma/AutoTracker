@@ -16,6 +16,7 @@
                 <div class="card col-md-6">
                     <div class="card-body">
                         <h5 class="card-title"><a href="/Cars/index/@car.ID">@car.Make @car.Model</a></h5>
+                        <h6><a href="/Cars/history/@car.ID">View in One Page </a></h6>
                         <h6 class="card-subtitle mb-2 text-muted">Maintenance - <a href="/Maintenance/Add/@car.ID">Add a Maintenance Service</a></h6>
                         <p class="card-text">You have logged the following maintenance in AutoTracker</p>
                         @foreach (var main in Model.Maintenances)

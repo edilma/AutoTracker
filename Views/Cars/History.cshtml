@@ -3,36 +3,73 @@
     ViewData["Title"] = "History";
 }
 
-
-<h1>History</h1>
-<div>
-    <h3>Show all cars</h3>
-    <table>
-        <tr>
-            <th>Year</th>
-            <th>Make</th>
-            <th>Model</th>
-            <th>Current Miles</th>
-            <th>Number Services</th>
-        </tr>
-        <tr>
-            <td>@Model.Year</td>
-            <td>@Model.Make</td>
-            <td>@Model.Model</td>
-            <td>@Model.CurrentMiles</td>
-            <td>@Model.NextMaintenanceDays</td>
-            <td>@Model.Maintenances.Count</td>
-        </tr>
-
-    </table>
-
-    @foreach (var maint in Model.Maintenances)
-    {
-        <div>
-            @maint.MaintenanceType.Name
-            @maint.MaintenancePerformedDate
-            @maint.MaintenanceCost
+<!--This view shows the maintenance and modification history of one car
+    the controller history creates this page-->
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title text-danger"> @Model.Make @Model.Model @Model.Year</h4>
         </div>
-    }
 
-</div>
+        <div class="card-body">
+
+            <ul>
+                <li>VIN Number: @Model.VinNumber </li>
+                <li>Current Miles:  @Model.CurrentMiles</li>
+                <li>Number of Maintenance Services: @Model.Maintenances.Count</li>
+                <li>Next Maintenance in:  @Model.NextMaintenanceDays  </li>
+
+            </ul>
+
+            <!--Table to show the maintenances-->
+            <h5 class="card-subtitle mb-2 text-muted">Maintenance Report</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Service </th>
+                        <th scope="col">Miles for Next Service</th>
+                        <th scope="col">Cost</th>
+                    </tr>
+                </thead>
+                @foreach (var maint in Model.Maintenances)
+                {
+                    <tbody>
+                        <tr>
+                            <td>@maint.MaintenancePerformedDate.ToShortDateString()</td>
+                            <td>@maint.MaintenanceType.Name</td>
+                            <td>@maint.MaintenaceFutureMiles</td>
+                            <td>@maint.MaintenanceCost.ToString("C")</td>
+                        </tr>
+
+                    </tbody>
+                }
+            </table>
+            <br />
+            <br />
+            <!--Table to show the maintenances-->
+            <h6 class="card-subtitle mb-2 text-muted"> Modification Report</h6>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Date </th>
+                        <th scope="col">Modification</th>
+                        <th scope="col">Cost</th>
+                    </tr>
+                </thead>
+                @foreach (var mod in Model.Mods)
+                {
+                    <tbody>
+                        <tr>
+                            <td> @mod.ModDate.ToShortDateString()</td>
+                            <td> @mod.ModDate</td>
+                            <td> @mod.ModName</td>
+                            <td>@mod.ModCost.ToString("C")</td>
+                        </tr>
+
+                    </tbody>
+                }
+            </table>
+
+        </div>
+    </div>

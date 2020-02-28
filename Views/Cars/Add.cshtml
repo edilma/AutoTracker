@@ -2,40 +2,91 @@
 @{
     ViewData["Title"] = "Add";
 }
-
-<h1>Add a Car</h1>
-<div class="row align-items-center my-5">
-    <div class="col-lg-7">
-
-        <h2>Add your Car's VIN and we'll look up the details</h2>
-        <p>
-            AutoTracker has the history of your car maintenance
-
-            <form asp-controller="Cars" asp-action="Add" method="post">
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title text-danger"> Add a Car </h2>
+    </div>
+    <!--This section for users that have the vin number-->
+    <div class="card-body">
+        <h4 class="card-subtitle mb-2 text-muted">Input your car's VIN  number (We will look up the details)</h4>
+        <form asp-controller="Cars" asp-action="Add" method="post">
 
 
-                <input type="hidden" name="CarID" value="@Model.CarID" />
-                <div class="form-group">
-                    <label asp-for="VinNumber">Vin Number</label>
-                    <input class="form-control" asp-for="VinNumber" />
-                    <span asp-validation-for="VinNumber"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CurrentMiles">Current Miles</label>
-                    <input class="form-control" asp-for="CurrentMiles" />
-                    <span asp-validation-for="CurrentMiles"></span>
-                </div>
+            <input type="hidden" name="CarID" value="@Model.CarID" />
+            <div class="form-group">
+                <label asp-for="VinNumber">Vin Number</label>
+                <input class="form-control" asp-for="VinNumber" />
+                <span asp-validation-for="VinNumber"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentMiles">Current Miles</label>
+                <input class="form-control" asp-for="CurrentMiles" />
+                <span asp-validation-for="CurrentMiles"></span>
+            </div>
 
-
-                <div class="card-footer">
-                    <input class="btn btn-danger btn-sm" type="submit" value="Add a Car" />
-                </div>
-            </form>
-
-        </div>
-
-
-
-
+            <div class="card-footer">
+                <input class="btn btn-danger btn-sm" type="submit" value="Add a Car" />
+            </div>
+        </form>
     </div>
 </div>
+<!--This section for users that DO NOT have the vin number***FIX IN THE CONTROLLER-->
+<div class="card-body">
+    <h4 class="card-subtitle mb-2 text-muted">Input your car's VIN  number (We will look up the details)</h4>
+    <form asp-controller="Cars" asp-action="Index" method="post">
+
+
+        <input type="hidden" name="CarID" value="@Model.CarID" />
+        <div class="form-group">
+            <label asp-for="VinNumber">Vin Number</label>
+            <input class="form-control" asp-for="VinNumber" />
+            <span asp-validation-for="VinNumber"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentMiles">Current Miles</label>
+            <input class="form-control" asp-for="CurrentMiles" />
+            <span asp-validation-for="CurrentMiles"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Make">Make</label>
+            <input class="form-control" asp-for="Make" />
+            <span asp-validation-for="Make"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Model">Model</label>
+            <input class="form-control" asp-for="Model" />
+            <span asp-validation-for="Model"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Year">Year</label>
+            <input class="form-control" asp-for="Year" />
+            <span asp-validation-for="Year"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CurrentMiles">Current Miles</label>
+            <input class="form-control" asp-for="CurrentMiles" />
+            <span asp-validation-for="CurrentMiles"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NextMaintenanceDays">Next Maintenance Days</label>
+            <input class="form-control" asp-for="NextMaintenanceDays" value="90" />
+            <span asp-validation-for="NextMaintenanceDays"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="NextMaintenanceMiles">Next Maintenance Miles</label>
+            <input class="form-control" asp-for="NextMaintenanceMiles" value="5000" />
+            <span asp-validation-for="NextMaintenanceMiles"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VinNumber">Vin Number</label>
+            <input class="form-control" asp-for="VinNumber" />
+            <span asp-validation-for="VinNumber"></span>
+        </div>
+
+        <div class="card-footer">
+            <input class="btn btn-danger btn-sm" type="submit" value="Save" />
+        </div>
+    </form>
+</div>
+
