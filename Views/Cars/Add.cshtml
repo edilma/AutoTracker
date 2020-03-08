@@ -33,7 +33,7 @@
 <!--This section for users that DO NOT have the vin number***FIX IN THE CONTROLLER-->
 <div class="card-body">
     <h4 class="card-subtitle mb-2 text-muted">Input your car's VIN  number (We will look up the details)</h4>
-    <form asp-controller="Cars" asp-action="Index" method="post">
+    <form asp-controller="Cars" asp-action="Add" method="post">
 
 
         <input type="hidden" name="CarID" value="@Model.CarID" />
@@ -62,12 +62,6 @@
             <input class="form-control" asp-for="Year" />
             <span asp-validation-for="Year"></span>
         </div>
-
-        <div class="form-group">
-            <label asp-for="CurrentMiles">Current Miles</label>
-            <input class="form-control" asp-for="CurrentMiles" />
-            <span asp-validation-for="CurrentMiles"></span>
-        </div>
         <div class="form-group">
             <label asp-for="NextMaintenanceDays">Next Maintenance Days</label>
             <input class="form-control" asp-for="NextMaintenanceDays" value="90" />
@@ -78,11 +72,7 @@
             <input class="form-control" asp-for="NextMaintenanceMiles" value="5000" />
             <span asp-validation-for="NextMaintenanceMiles"></span>
         </div>
-        <div class="form-group">
-            <label asp-for="VinNumber">Vin Number</label>
-            <input class="form-control" asp-for="VinNumber" />
-            <span asp-validation-for="VinNumber"></span>
-        </div>
+       
 
         <div class="card-footer">
             <input class="btn btn-danger btn-sm" type="submit" value="Save" />

@@ -22,11 +22,11 @@ namespace AutoTracker.Controllers
         public CarsController(AutoTrackerDbContext dbContext)
         {
             context = dbContext;
-           
+
         }
 
         //Here we show all the maintenance performed in the car
-        public IActionResult Index(int id)
+        public IActionResult Edit(int id)
         {
             userID = HttpContext.Session.GetInt32("userID") ?? 0;
 
@@ -48,7 +48,7 @@ namespace AutoTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(AddCarsViewModel addCarsViewModel)
+        public IActionResult Edit(AddCarsViewModel addCarsViewModel)
         {
 
             Car car = context.Cars.Where(x => x.ID == addCarsViewModel.CarID).FirstOrDefault();
@@ -65,7 +65,8 @@ namespace AutoTracker.Controllers
             return Redirect("/Home/MainPage");
         }
 
-        //Get where the user lands and sees the button
+
+
         public IActionResult Add()
         {
             AddCarsViewModel addCarsViewModel = new AddCarsViewModel();
@@ -73,59 +74,126 @@ namespace AutoTracker.Controllers
             return View(addCarsViewModel);
 
         }
+
         [HttpPost]
         public async Task<IActionResult> Add(AddCarsViewModel addCarsViewModel)
         {
+            userID = HttpContext.Session.GetInt32("userID") ?? 0;
             if (ModelState.IsValid)
             {
+                if (AddCarLongViewModel.Make == null)
+                // Pull the car information using API
+                {
+                    // Vin API: https://github.com/writelinez/NHTSA-VehicleData
+                    NHTSAClient nhtsaClient = new NHTSAClient();
+                    VehicleDataResponse<VinDecodeResult> vinResult = await nhtsaClient.DecodeVinAsync(addCarsViewModel.VinNumber);
+                    VinDecodeResult VinAPIResult = vinResult.Results.FirstOrDefault();
 
-                userID = HttpContext.Session.GetInt32("userID") ?? 0;
-
-                // Vin API: https://github.com/writelinez/NHTSA-VehicleData
-                NHTSAClient nhtsaClient = new NHTSAClient();
-                VehicleDataResponse<VinDecodeResult> vinResult = await nhtsaClient.DecodeVinAsync(addCarsViewModel.VinNumber);
-                VinDecodeResult VinAPIResult = vinResult.Results.FirstOrDefault();
-
-                if (VinAPIResult != null)
+                    if (VinAPIResult != null)
                     {
 
-                    
-                    Car car = new Car();
-                    car.Make = VinAPIResult.Make;
-                    car.Model = VinAPIResult.Model;
-                    car.CurrentMiles = addCarsViewModel.CurrentMiles;
-                    car.UserID = userID;
-                    car.NextMaintenanceDays = 0;
-                    car.NextMaintenanceMiles = 0;
-                    car.VinNumber = addCarsViewModel.VinNumber;
-                    car.Year = Int32.Parse(VinAPIResult.ModelYear);
-                    context.Cars.Add(car);
-                    context.SaveChanges();
-                    return Redirect("/Cars/Index/" + car.ID);
+
+                        Car car = new Car();
+                        car.Make = VinAPIResult.Make;
+                        car.Model = VinAPIResult.Model;
+                        car.CurrentMiles = addCarsViewModel.CurrentMiles;
+                        car.UserID = userID;
+                        car.NextMaintenanceDays = 0;
+                        car.NextMaintenanceMiles = 0;
+                        car.VinNumber = addCarsViewModel.VinNumber;
+                        car.Year = Int32.Parse(VinAPIResult.ModelYear);
+                        context.Cars.Add(car);
+                        context.SaveChanges();
+                        return Redirect("/Cars/Index/" + car.ID);
+                    }
+                    else
+                    {
+                        // use the information from the user 
+                        Car car = context.Cars.Where(x => x.ID == addCarsViewModel.CarID).FirstOrDefault();
+
+                        car.ID = addCarsViewModel.CarID;
+                        car.Make = addCarsViewModel.Make;
+                        car.Model = addCarsViewModel.Model;
+                        car.CurrentMiles = addCarsViewModel.CurrentMiles;
+                        car.NextMaintenanceDays = addCarsViewModel.NextMaintenanceDays;
+                        car.NextMaintenanceMiles = addCarsViewModel.NextMaintenanceMiles;
+                        car.VinNumber = addCarsViewModel.VinNumber;
+                        car.Year = addCarsViewModel.Year;
+                        context.SaveChanges();
+                        return Redirect("/Home/MainPage");
+
+                    }
                 }
-            };
+            }
+
             return View(addCarsViewModel);
 
-        }
-        //Get action to make a report
-       public IActionResult Display()
-        {
-            var cars = context.Cars;
-            return View(cars);
-        }
 
-        public IActionResult History(int id)
-        {
-            Car myCar = context.Cars.Where(x => x.ID == id).FirstOrDefault();
-            myCar.Maintenances = context.Maintenances.Where(x => x.CarID == id).ToList();
-            foreach (var main in myCar.Maintenances)
+
+
+
+
+
+
+
+
+
+            /*
+            [HttpPost]
+            public async Task<IActionResult> Add(AddCarsViewModel addCarsViewModel)
             {
-                main.MaintenanceType = context.MaintenanceTypes.Where(x => x.MaintenanceTypeID == main.MaintenanceTypeID).FirstOrDefault();
-            }
-            
-            myCar.Mods = context.Mods.Where(x => x.CarID == id).ToList();
+                if (ModelState.IsValid)
+                {
 
-            return View(myCar);
+                    userID = HttpContext.Session.GetInt32("userID") ?? 0;
+
+                    // Vin API: https://github.com/writelinez/NHTSA-VehicleData
+                    NHTSAClient nhtsaClient = new NHTSAClient();
+                    VehicleDataResponse<VinDecodeResult> vinResult = await nhtsaClient.DecodeVinAsync(addCarsViewModel.VinNumber);
+                    VinDecodeResult VinAPIResult = vinResult.Results.FirstOrDefault();
+
+                    if (VinAPIResult != null)
+                        {
+
+
+                        Car car = new Car();
+                        car.Make = VinAPIResult.Make;
+                        car.Model = VinAPIResult.Model;
+                        car.CurrentMiles = addCarsViewModel.CurrentMiles;
+                        car.UserID = userID;
+                        car.NextMaintenanceDays = 0;
+                        car.NextMaintenanceMiles = 0;
+                        car.VinNumber = addCarsViewModel.VinNumber;
+                        car.Year = Int32.Parse(VinAPIResult.ModelYear);
+                        context.Cars.Add(car);
+                        context.SaveChanges();
+                        return Redirect("/Cars/Index/" + car.ID);
+                    }
+                };
+                return View(addCarsViewModel);
+
+            }
+            */
+            //Get action to make a report
+            public IActionResult Display()
+            {
+                var cars = context.Cars;
+                return View(cars);
+            }
+
+            public IActionResult History(int id)
+            {
+                Car myCar = context.Cars.Where(x => x.ID == id).FirstOrDefault();
+                myCar.Maintenances = context.Maintenances.Where(x => x.CarID == id).ToList();
+                foreach (var main in myCar.Maintenances)
+                {
+                    main.MaintenanceType = context.MaintenanceTypes.Where(x => x.MaintenanceTypeID == main.MaintenanceTypeID).FirstOrDefault();
+                }
+
+                myCar.Mods = context.Mods.Where(x => x.CarID == id).ToList();
+
+                return View(myCar);
+            }
         }
     }
 }
