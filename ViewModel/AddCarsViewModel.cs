@@ -11,7 +11,7 @@ namespace AutoTracker.ViewModels
 
         public int CarID { get; set; }
         public int UserID { get; set; }
-        [Required]
+        
         [Display(Name = "Vin Required")]
         public string VinNumber { get; set; }
         public string Make { get; set; }
@@ -19,6 +19,7 @@ namespace AutoTracker.ViewModels
         public int NextMaintenanceMiles { get; set; }
         public int NextMaintenanceDays { get; set; }
         public int Year { get; set; }
+        [Required]
         public int CurrentMiles { get; set; } 
         public AddCarsViewModel()
         {

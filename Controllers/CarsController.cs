@@ -78,31 +78,52 @@ namespace AutoTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 userID = HttpContext.Session.GetInt32("userID") ?? 0;
 
-                // Vin API: https://github.com/writelinez/NHTSA-VehicleData
-                NHTSAClient nhtsaClient = new NHTSAClient();
-                VehicleDataResponse<VinDecodeResult> vinResult = await nhtsaClient.DecodeVinAsync(addCarsViewModel.VinNumber);
-                VinDecodeResult VinAPIResult = vinResult.Results.FirstOrDefault();
+                if (addCarsViewModel.VinNumber != null)
+                {
 
-                if (VinAPIResult != null)
+                    // Vin API: https://github.com/writelinez/NHTSA-VehicleData
+                    NHTSAClient nhtsaClient = new NHTSAClient();
+                    VehicleDataResponse<VinDecodeResult> vinResult = await nhtsaClient.DecodeVinAsync(addCarsViewModel.VinNumber);
+                    VinDecodeResult VinAPIResult = vinResult.Results.FirstOrDefault();
+
+                    if (VinAPIResult != null)
                     {
 
-                    
+
+                        Car car = new Car();
+                        car.Make = VinAPIResult.Make;
+                        car.Model = VinAPIResult.Model;
+                        car.CurrentMiles = addCarsViewModel.CurrentMiles;
+                        car.UserID = userID;
+                        car.NextMaintenanceDays = 0;
+                        car.NextMaintenanceMiles = 0;
+                        car.VinNumber = addCarsViewModel.VinNumber;
+                        car.Year = Int32.Parse(VinAPIResult.ModelYear);
+                        context.Cars.Add(car);
+                        context.SaveChanges();
+                        return Redirect("/Cars/Index/" + car.ID);
+                    }
+
+                }
+                else
+                {
                     Car car = new Car();
-                    car.Make = VinAPIResult.Make;
-                    car.Model = VinAPIResult.Model;
+                    car.Make = addCarsViewModel.Make;
+                    car.Model = addCarsViewModel.Model;
                     car.CurrentMiles = addCarsViewModel.CurrentMiles;
                     car.UserID = userID;
                     car.NextMaintenanceDays = 0;
                     car.NextMaintenanceMiles = 0;
                     car.VinNumber = addCarsViewModel.VinNumber;
-                    car.Year = Int32.Parse(VinAPIResult.ModelYear);
+                    car.Year = addCarsViewModel.Year;
                     context.Cars.Add(car);
                     context.SaveChanges();
                     return Redirect("/Cars/Index/" + car.ID);
+
                 }
+
             };
             return View(addCarsViewModel);
 
