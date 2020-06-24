@@ -29,7 +29,9 @@ namespace AutoTracker.Controllers
         {
            AddModViewModel addModViewModel = new AddModViewModel();
             addModViewModel.CarID = id;
-           return View(addModViewModel);
+            Car myCar = context.Cars.Where(x => x.ID == id).FirstOrDefault();
+            addModViewModel.CarName = myCar.Make + " " + myCar.Model + " " + myCar.Year;
+            return View(addModViewModel);
             
         }
         [HttpPost]
