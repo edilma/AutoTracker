@@ -23,6 +23,7 @@ namespace AutoTracker.ViewModels
         [Display(Name = "Modification Cost")]
         [Range(0, 9999.99)]
         public double ModCost { get; set; }
+        public string CarName { get; set; }
 
         public AddModViewModel() { }
     }

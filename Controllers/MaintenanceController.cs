@@ -32,6 +32,8 @@ namespace AutoTracker.Controllers
             IEnumerable<MaintenanceType> maintenanceTypes = context.MaintenanceTypes.ToList();
             AddMaintenanceViewModel addMaintenanceViewModel = new AddMaintenanceViewModel( maintenanceTypes);
             addMaintenanceViewModel.CarID = id;
+            Car myCar = context.Cars.Where(x => x.ID == id).FirstOrDefault();
+            addMaintenanceViewModel.CarName = myCar.Make +" "+ myCar.Model +" "+ myCar.Year;
             return View(addMaintenanceViewModel);
 
         }

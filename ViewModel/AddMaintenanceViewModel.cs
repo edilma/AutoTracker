@@ -15,6 +15,7 @@ namespace AutoTracker.ViewModels
         //public string SelectMaintenace { get; set; }
         
         public int MaintenanceTypeID { get; set; }
+        public string CarName { get; set; }
         public List<SelectListItem> MaintenanceTypes { get; set; }
         
         [Required (ErrorMessage = "Please enter a valid number of miles")]
